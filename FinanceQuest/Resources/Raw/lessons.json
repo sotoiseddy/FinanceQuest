@@ -1,0 +1,31 @@
+[
+    {
+        "lessonId": 1,
+        "title": "Budgeting Basics",
+        "content": "Learn how to track your income and expenses.",
+        "quiz": [
+            {
+                "question": "What is a budget?",
+                "options": [ "A plan for saving", "A plan for spending", "A plan for earning" ],
+                "correct": 1
+            },
+            {
+                "question": "What should you track?",
+                "options": [ "Income only", "Expenses only", "Both income and expenses" ],
+                "correct": 2
+            }
+        ]
+    },
+    {
+        "lessonId": 2,
+        "title": "Saving Money",
+        "content": "Learn the importance of setting aside money.",
+        "quiz": [
+            {
+                "question": "What is an emergency fund?",
+                "options": [ "Money saved for entertainment", "Money saved for unexpected expenses", "Money saved for shopping" ],
+                "correct": 1
+            }
+        ]
+    }
+]
