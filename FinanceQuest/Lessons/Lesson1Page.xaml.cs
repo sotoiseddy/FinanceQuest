@@ -5,9 +5,11 @@ public partial class Lesson1Page : ContentPage
     private Label dynamicLabel;
     private Label dynamicLabel2;
     private Button button1, button2, button3, button4;
+    private BoxView shrinkingCircle;
     private int currentQuestionIndex = 0;
     private List<FinanceQuestion> questions;
     private int userXP = 0;  // Declare the userXP variable here
+
     public Lesson1Page()
     {
         this.BackgroundColor = Color.FromHex("#500073");
@@ -185,6 +187,33 @@ public partial class Lesson1Page : ContentPage
             FontSize = 24,
             HorizontalOptions = LayoutOptions.Center
         };
+        shrinkingCircle = new BoxView
+        {
+            Color = Colors.DarkRed,
+            WidthRequest = 150,
+            HeightRequest = 150,
+            CornerRadius = 75,
+            HorizontalOptions = LayoutOptions.Center
+        };
+        Label circleText = new Label
+        {
+            Text = " ",  // Change to desired text
+            FontSize = 40,
+            TextColor = Colors.White,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+        AbsoluteLayout absoluteLayout = new AbsoluteLayout
+        {
+            WidthRequest = 150,
+            HeightRequest = 150,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+        absoluteLayout.Children.Add(shrinkingCircle);
+        absoluteLayout.Children.Add(circleText);
+
+        stackLayout.Children.Add(absoluteLayout);
         stackLayout.Children.Add(dynamicLabel);
         stackLayout.Children.Add(dynamicLabel2);
         button1 = CreateAnswerButton(0);
@@ -221,11 +250,13 @@ public partial class Lesson1Page : ContentPage
                 if (currentQuestionIndex < questions.Count)
                 {
                     UpdateQuestion();
+                    ShrinkCircle();
                     dynamicLabel2.Text = "";
                 }
                 else
                 {
-                    dynamicLabel.Text = "Congratulations! You've completed the quiz!";
+                    dynamicLabel.Text = "Congratulations! You've killed  the circle";
+                    HideCircle();
                     button1.IsVisible = button2.IsVisible = button3.IsVisible = button4.IsVisible = false;
                     IncreaseXP();
                 }
@@ -248,7 +279,21 @@ public partial class Lesson1Page : ContentPage
         button3.Text = questions[currentQuestionIndex].Answers[2];
         button4.Text = questions[currentQuestionIndex].Answers[3];
     }
+    private void ShrinkCircle()
+    {
+        // Calculate the proportion of questions remaining
+        double remainingProportion = (double)(questions.Count - currentQuestionIndex) / questions.Count;
 
+        // Set a new size for the circle based on the remaining proportion
+        double newSize = Math.Max(50, 150 * remainingProportion); // Minimum size is 50
+        shrinkingCircle.WidthRequest = newSize;
+        shrinkingCircle.HeightRequest = newSize;
+        shrinkingCircle.CornerRadius = (float)(newSize / 2); // Keep the circle shape
+    }
+    private void HideCircle()
+    {
+        shrinkingCircle.IsVisible = false;
+    }
     private void IncreaseXP()
     {
         userXP += 10;  // Increase by 10 points (adjust as needed)

@@ -43,7 +43,7 @@ namespace FinanceQuest
         private async void OnStartChapterClicked(object sender, EventArgs e)
         {
             // Navigate to the Lesson1Page
-            await Navigation.PushAsync(new Lesson1Page());
+            await Navigation.PushAsync(new Intro());
         }
     }
 
